@@ -16,6 +16,7 @@
     "bootstrap-colorpicker": "^3.2.0",
     "core-js": "^2.6.5",
     "jquery": "^3.4.1",
+    "lodash": "^4.17.10",
     "material-icons": "^0.3.1",
     "mdb": "^0.1.0",
     "popper.js": "^1.15.0",
@@ -28,6 +29,7 @@
     "vue-picture-input": "^2.1.6",
     "vue-plotly": "^1.1.0",
     "vue-router": "^3.0.3",
+    "vue-sidebar-menu": "^4.5.4",
     "vue-simple-alert": "^1.1.1",
     "vuesax": "^3.11.13",
     "vuex": "^3.0.1"
@@ -39,8 +41,11 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.2",
     "vue-easy-pie-chart": "^1.0.3",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.43.0"
   },
   "eslintConfig": {
     "root": true,
