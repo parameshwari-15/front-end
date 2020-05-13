@@ -1,4 +1,5 @@
 <template>
+<div class="container">
 <div class="space">
   <div class="para">
 <strong>CHANGE HEADER COLOR</strong><br>
@@ -25,6 +26,7 @@
       &nbsp;&nbsp;&nbsp;&nbsp;
       <button class="button" @click="hidecomponent(hideapp)">save</button>
   </div>
+</div>
 </div>
 </div>
 </template>

@@ -49,6 +49,24 @@
             class="form-control"
             name="swagger"
           />
+           <div class="form-group">
+          <label for="password">Request</label>
+          <select id="request" name="request" v-model="apirec.request"> 
+            <option value="get" >GET</option>
+            <option value="post">POST</option>
+        </select>
+        </div>
+          <div class="form-group">
+          <label for="password">Link</label>
+          <input
+            v-model="apirec.link"
+            v-validate="'required'"
+            type="text"
+            class="form-control"
+            name="Link"
+          />
+         
+        </div>
          
         </div>
         <div>
@@ -65,7 +83,6 @@
             <span>Upload API</span>
           </button>
         </div>
-        
       </form>
     </div>
   </div>
@@ -104,6 +121,7 @@ import axios from 'axios';
          let uri='http://localhost:8080/api/postapi';
          axios.post(uri,{ apirecords: this.apirec });
          //this.$router.push('/comment');
+         alert("API uploaded successfully")
          location.reload();
         }
       }

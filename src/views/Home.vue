@@ -1,7 +1,14 @@
 <template>
+
+
+  <div class="main-content">
+
+   
+    <div class="main-content__body">
+
   <div class="container">
     <!-- <header class="jumbotron"> -->
-      <h3>{{content}}</h3>
+      <!-- <h3>{{c>ontent}}</h3 -->
       <div id="app">
         
         <!-- <apexchart type="pie" width="380" :options="chartOptions" :series="series"></apexchart> -->
@@ -15,6 +22,8 @@
       </div>
     <!-- </header> -->
   </div>
+    </div>
+    </div>
 </template>
 //  <script src='//cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js'></script>
 //     <script src='//unpkg.com/vue-chartjs@2.6.0/dist/vue-chartjs.full.min.js'></script>
@@ -46,9 +55,10 @@
 <script>
 import UserService from '../services/user.service';
 import VueEasyPieChart from 'vue-easy-pie-chart'
-  import 'vue-easy-pie-chart/dist/vue-easy-pie-chart.css'
-  import { Plotly } from 'vue-plotly'
+import 'vue-easy-pie-chart/dist/vue-easy-pie-chart.css'
+import { Plotly } from 'vue-plotly'
   export default {
+    name: 'home',
     components: { Plotly },
     data() {
         return {
@@ -62,15 +72,9 @@ import VueEasyPieChart from 'vue-easy-pie-chart'
         }
     },
     async created() {
-        let resp = await fetch("https://api.jsonbin.io/b/5e2b4f673d75894195de48ff/1");
-        let data = await resp.json();
-        let pageViewsByCategory = data.pageViewsByCategory;
-        
-        // setup data for line chart
-        
-
-        // setup data for pie chart
-        this.pageViewsByCategoryData = [
+      UserService.getPiedata().then(
+        response=>{
+          this.pageViewsByCategoryData = [
             {
                 values: [],
                 labels: [], 
@@ -78,10 +82,20 @@ import VueEasyPieChart from 'vue-easy-pie-chart'
             }
         ];
 
-        for(let cat in pageViewsByCategory) {
+        for(let cat in response.data) {
             this.pageViewsByCategoryData[0].labels.push(cat);
-            this.pageViewsByCategoryData[0].values.push(pageViewsByCategory[cat]);
+            this.pageViewsByCategoryData[0].values.push(response.data[cat]);
         }
+        }
+      )
+        // let resp = await fetch("https://api.jsonbin.io/b/5e2b4f673d75894195de48ff/1");
+        // let data = await resp.json();
+        // let pageViewsByCategory = data.pageViewsByCategory;
+        
+        // setup data for line chart
+
+        // setup data for pie chart
+        
 
         // this.visitorsData = [
         //     { 

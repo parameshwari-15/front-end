@@ -3,41 +3,51 @@
     <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
     <!-- <header class="jumbotron"> -->
       <h2 align="center">API</h2>
+      <!-- <h1>{{ contents.api }}</h1> -->
+    <ul v-for="content in contents" :key="content.api" class="ul">
     <li v-for="c in content" :key="c.apiname" class="ul">
          <ul>
              <br>
-             <!-- <h1>{{this.$route.params.admin}}</h1> -->
               <div class="card w3-hover-shadow">
               <div class="container">
               <label>API NAME</label>
-              {{content.apiname}}<br>
+              {{c.apiname}}<br>
               <label>CREATER</label>
-              {{ content.CreatedBy}}<br>
+              {{ c.CreatedBy}}<br>
               <label>VERSION</label>
-              {{ content.Version}}<br>
+              {{ c.Version}}<br>
               <label>API ID</label>
-              {{ content._id}}<br>
+              {{ c._id}}<br>
               <label>ACCESS</label>
-              {{content.access}}<br>
-              <router-link  :to="{name: 'comment', params: { admin:false,id:currentUser.id,apiname:content.apiname,name:currentUser.username }}" class="nav-link"><font-awesome-icon icon ="comment"/>&nbsp;Comment</router-link>
-              <div v-if="content.access == 'private'">
+              {{c.access}}<br>
+              <label>LINK</label>
+              {{ c.Link }}<br>
+              <label>Request</label>
+              {{ c.Request }}
+              <br>
+              <router-link  :to="{name: 'comment', params: { admin:false,id:currentUser.id,apiname:c.apiname,name:currentUser.username }}" class="nav-link"><font-awesome-icon icon ="comment"/>&nbsp;Comment</router-link>
+              <router-link v-if="c.Request == 'post'" :to="{name: 'apitest',params:{link:c.Link,data:c.Swagger}}" class="nav-link">&nbsp;Test POST</router-link>
+              <router-link v-if="c.Request == 'get'" :to="{name: 'apitestget',params:{link:c.Link}}" class="nav-link">&nbsp;Test GET</router-link>
+              <div v-if="c.access == 'private'">
               <button @click="checkaccess(content.apiname)">
               <font-awesome-icon icon="home" />send request
               </button>
               &nbsp;&nbsp;
-              <button @click="checkToken">
-              <font-awesome-icon icon="home" />Token check
-              </button>
+              <!-- <button @click="checkToken"> -->
+              <!-- <font-awesome-icon icon="home" />Token check -->
+              
+              <!-- </button> -->
               </div>
               <div v-else>
-                <button @click="tryme">
+                <!-- <button >
               <font-awesome-icon icon="home" />Try me
-              </button>
+                </button> -->
               </div>
               </div>
               </div>
          </ul>
      </li>
+     </ul>
     <!-- </header> -->
     
 </div>
@@ -52,7 +62,7 @@ import axios from 'axios';
     export default {
       data() {
         return {
-        content:'',
+        contents:'',
         APIRecords: new APIRecords('', ''),
         request:'',
         token:''
@@ -75,14 +85,14 @@ import axios from 'axios';
         // });
       },
        mounted() {
-       //console.log("Method triggered");
+       console.log("Method triggered");
 
           UserService.getTest().then(
       response => {
-        this.content = response.data;
+        this.contents = response.data;
       },
       error => {
-        this.content =
+        this.contents =
           (error.response && error.response.data) ||
           error.message ||
           error.toString();

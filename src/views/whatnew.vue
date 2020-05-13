@@ -1,4 +1,5 @@
 <template>
+<div class="container">
     <div>
     <h3>What's New??</h3>
     <textarea class="form-control" v-model="data" rows="3"></textarea>
@@ -8,6 +9,7 @@
               <button class="icon"  @click.prevent="handleDelete(modal._id)"><font-awesome-icon icon="trash" /></button>
             </div>
     </div>
+</div>
 </template>
 <script>
 import userService from '../services/user.service';

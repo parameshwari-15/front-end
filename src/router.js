@@ -7,7 +7,8 @@ import AdminProperties from './views/AdminProperties';
 import UserComment from './views/UserComments.vue';
 import ViewUsers from './views/ViewUsers.vue';
 import ArchivedComments from './views/ArchivedComments.vue';
-
+import ApiTest from './views/ApiTest.vue'
+import ApiTestGet from './views/ApiTestGet.vue'
 Vue.use(Router);
 
 export const router = new Router({
@@ -28,6 +29,14 @@ export const router = new Router({
       component: Home
     },
     {
+      path: '/page/:sectionSlug',
+      name: 'dynamicContent',
+      // route level code-splitting
+      // this generates a separate chunk (dynamicContent.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "dynamicContent" */ './views/DynamicContent.vue')
+    },
+    {
       path: '/login',
       component: Login
     },
@@ -40,6 +49,18 @@ export const router = new Router({
       name: 'profile',
       // lazy-loaded
       component: () => import('./views/Profile.vue')
+    },
+    {
+      path: '/apitest',
+      name: 'apitest',
+      // lazy-loaded
+      component: ApiTest
+    },
+    {
+      path: '/apitestget',
+      name: 'apitestget',
+      // lazy-loaded
+      component: ApiTestGet
     },
     {
       path: '/admin',

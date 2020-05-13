@@ -1,94 +1,112 @@
+
+
 <template>
-  <div id="app">
-    <!-- navbar-custom -->
-     <!-- navbar-expand navbar-dark bg-dark -->
-    <nav class="navbar navbar-expand navbar-custom">  
-      <div v-if="currentUser" class="dropdown">
-      <button class="dropbtn"  @click="active=!active"><font-awesome-icon icon="bars" />&ensp;</button>
-      <!-- <div id="wrapper" class="toggled"> -->
-      <vs-sidebar parent="body" default-index="1"  color="secondary" class="sidebar" spacer v-model="active">
+   <div id="app">
+     
+        
+     <!-- navbar-custom -->
+      <!-- navbar-expand navbar-dark bg-dark -->
+     <nav class="navbar navbar-expand navbar-custom" > 
+       
+       <div v-if="currentUser" class="dropdown">
+       <button class="dropbtn"  @click="navbar=!navbar"><font-awesome-icon icon="bars" />&ensp;
+       <div v-if="navbar" id="wrapper" :class="wrapperClass">
+        <MenuToggleBtn></MenuToggleBtn>
+        <Menu></Menu>
+        <ContentOverlay>
+          </ContentOverlay>
+   </div>
+       
+       
+       
+       
+       </button>
+        
+       <!-- <vs-sidebar parent="body" default-index="1"  color="secondary" class="sidebar" spacer v-model="active">
         <br><h4 align="center">MENU BAR</h4><hr>
         <vs-sidebar-item  v-for="AllUsers in currentUser.menuitems" :key="AllUsers.id" @click="goComponent(AllUsers)">        
-        <h5><font-awesome-icon icon="newspaper" />&nbsp;&nbsp;{{AllUsers}}</h5>
-        </vs-sidebar-item>
-        <vs-sidebar-item @click="show">
-          what's new?
-        </vs-sidebar-item>
-        <!-- <vs-sidebar-item index="2" icon="gavel">
-        History
-        </vs-sidebar-item> -->
-      </vs-sidebar>
-      <modal name="hello-world">
-            <div v-for="modal in whatdata" :key="modal.data">
-              <li>{{modal.data}}</li>
-            </div>
-    </modal>        
-      <!-- </div> --> 
-      <!-- <div class="dropdown-content">
-        <li class="nav-item" >
-          <div class="nav-link">
-          <font-awesome-icon icon="newspaper" />{{AllUsers}}
-          </div>
-        </li>
-      </div> -->
-      </div>
-      <a href class="navbar-brand" @click.prevent>apdiscover</a>
-      <div class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link to="/home" class="nav-link">
-            <font-awesome-icon icon="home" />Home
-          </router-link>
-        </li>
-        <li v-if="showAdminBoard" class="nav-item">
-          <router-link to="/admin" class="nav-link">Admin Board</router-link>
-        </li>
-        <li v-if="showAdminBoard" class="nav-item">
-        <router-link to="/adminproperties" class="nav-link">properties</router-link>
-        </li>
-        <li v-if="showAdminBoard" class="nav-item">
-        <router-link to="/whatsnew" class="nav-link">What's new</router-link>
-        </li>
-        <li v-if="showModeratorBoard" class="nav-item">
-          <router-link to="/mod" class="nav-link">Moderator Board</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
-        </li>
-      </div>
+         <h5><font-awesome-icon icon="newspaper" />&nbsp;&nbsp;{{AllUsers}}</h5>
+         </vs-sidebar-item>
+         <vs-sidebar-item @click="show">
+           what's new?
+         </vs-sidebar-item>
+        
+       </vs-sidebar> -->
+       <modal name="hello-world">
+             <div v-for="modal in whatdata" :key="modal.data">
+               <li>{{modal.data}}</li>
+             </div>
+     </modal>        
+       <!-- </div> --> 
+       <!-- <div class="dropdown-content">
+         <li class="nav-item" >
+           <div class="nav-link">
+           <font-awesome-icon icon="newspaper" />{{AllUsers}}
+           </div>
+         </li>
+       </div> -->
+       </div>
+       <a href class="navbar-brand" @click.prevent>apdiscover</a>
+       <div class="navbar-nav mr-auto">
+         <li class="nav-item">
+           <router-link to="/home" class="nav-link">
+             <font-awesome-icon icon="home" />Home
+           </router-link>
+         </li>
+         <li v-if="showAdminBoard" class="nav-item">
+           <router-link to="/admin" class="nav-link">Admin Board</router-link>
+         </li>
+         <li v-if="showAdminBoard" class="nav-item">
+         <router-link to="/adminproperties" class="nav-link">properties</router-link>
+         </li>
+         <li v-if="showAdminBoard" class="nav-item">
+         <router-link to="/whatsnew" class="nav-link">What's new</router-link>
+         </li>
+         <li v-if="showModeratorBoard" class="nav-item">
+           <router-link to="/mod" class="nav-link">Moderator Board</router-link>
+         </li>
+         <li class="nav-item">
+           <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
+         </li>
+       </div>
 
-      <div v-if="!currentUser" class="navbar-nav ml-auto">
-        <li class="nav-item">
+       <div v-if="!currentUser" class="navbar-nav ml-auto">
+         <li class="nav-item">
           <router-link to="/register" class="nav-link">
-            <font-awesome-icon icon="user-plus" />Sign Up
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/login" class="nav-link">
-            <font-awesome-icon icon="sign-in-alt" />Login
-          </router-link>
-        </li>
-      </div>
+             <font-awesome-icon icon="user-plus" />Sign Up
+           </router-link>
+         </li>
+         <li class="nav-item">
+           <router-link to="/login" class="nav-link">
+             <font-awesome-icon icon="sign-in-alt" />Login
+           </router-link>
+         </li>
+       </div>
 
-      <div v-if="currentUser" class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <router-link to="/profile" class="nav-link">
-            <font-awesome-icon icon="user" />
-            {{ currentUser.username }}
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href @click.prevent="logOut">
-            <font-awesome-icon icon="sign-out-alt" />LogOut
-          </a>
-        </li>
-      </div>
-    </nav>
-
-    <div class="container">
-      <router-view />
-    </div>
-  </div>
-</template>
+       <div v-if="currentUser" class="navbar-nav ml-auto">
+         <li class="nav-item">
+           <router-link to="/profile" class="nav-link">
+             <font-awesome-icon icon="user" />
+             {{ currentUser.username }}
+           </router-link>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href @click.prevent="logOut">
+             <font-awesome-icon icon="sign-out-alt" />LogOut
+           </a>
+         </li>
+       </div>
+       
+     </nav>
+      <!-- <router-view>  </router-view> -->
+     <div v-if="navbar" id="wrapper" :class="wrapperClass">
+       <router-view />
+     </div>
+     <div v-else >
+       <router-view />
+     </div>
+   </div>
+</template> 
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
@@ -244,16 +262,54 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   color: #fff;
   background: none;
 }
-</style>
+</style> 
 <script>
 import UserService from './services/user.service'
 import 'vuesax/dist/vuesax.css'
+import MenuToggleBtn from '@/components/MenuToggleBtn.vue'
+import Menu from '@/components/Menu.vue'
+import ContentOverlay from '@/components/ContentOverlay.vue'
+import { SidebarMenu } from 'vue-sidebar-menu'
+
 export default {
+  
   name: 'app',
+  components:{
+    MenuToggleBtn,
+    Menu,
+    ContentOverlay,
+    SidebarMenu
+  },
+  created() {
+    window.bus.$on('menu/toggle', () => {
+
+      window.setTimeout(() => {
+        this.isOpenMobileMenu = !this.isOpenMobileMenu;
+      }, 200);
+    });
+    window.bus.$on('menu/closeMobileMenu', () => {
+      this.isOpenMobileMenu = false;
+    });
+  },
+
   data(){
     return {
+      isOpenMobileMenu: false,
       active:false,
-      whatdata:''
+      whatdata:'',
+      navbar:true,
+       menu: [
+                {
+                    href: '/',
+                    title: 'Dashboard',
+                    icon: 'fa fa-user'
+                },
+                {
+                    href: '#',
+                    title: 'Charts',
+                    icon: 'fa fa-chart-area'
+                },
+            ]
     }
   },
   mounted(){
@@ -296,8 +352,14 @@ export default {
         return this.currentUser.roles.includes('ROLE_MODERATOR');
       }
       return false;
-    }
+    },
+    wrapperClass() {
+      return {
+        'toggled': this.isOpenMobileMenu === true,
+      };
+    },
   },
+  
   methods: {
     show(){
       this.$modal.show('hello-world');
@@ -312,3 +374,10 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+@import 'styles/layout.scss';
+@import 'styles/menu-toggle-btn.scss';
+@import 'styles/menu.scss';
+@import 'styles/content-overlay.scss';
+@import 'styles/media-queries.scss';
+</style>

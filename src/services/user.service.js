@@ -79,6 +79,9 @@ sendnew(data){
     whatsdata:data
   })
 }
+getPiedata(){
+  return axios.get('http://localhost:8080/api/test/getPiedata');
+}
 getwhats(){
   return axios.get(API_URL+'getwhats',{headers:authHeader()});
 }
